@@ -1,6 +1,7 @@
 name: Generate SVG file
 on:
-  schedule:
+  - workflow_dispatch
+  - schedule:
     - cron: "10 9 * * *"
 permissions:
   contents: write
