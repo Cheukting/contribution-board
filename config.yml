@@ -9,6 +9,12 @@ repos:
 # output svg file name
 output: output.svg
 
+# title (optional)
+title: My Contributions in Rust
+
+# prioritized list of one or more font family names and/or generic family names seperated by commas (optional)
+fonts: Arial, Helvetica, sans-serif
+
 # status of the PR that would be included: all, open, closed
 state: all
 
@@ -18,14 +24,14 @@ style: full
 # size multiplyer: non-negative, recommend 0.8-1.5
 size: 1
 
-# color of the background, if not given it will be transparent
-bg_color: "grey"
+# color of the background (optional), if not given it will be transparent
+bg_color: "#696969"
 
 # The radius of the corners of the background: non-negative, recommend 5-15
-bg_r: 5
+bg_r: 8
 
 # primary color
-pri_color: "black"
+pri_color: "#FFC0CB"
 
 # secondary color
-sec_color: "blue"
+sec_color: "#CBB39C"

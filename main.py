@@ -35,6 +35,8 @@ with open("output.json", "w") as file:
     json.dump(all_prs, file)
 
 colors = {
+    "title": config["title"],
+    "fonts": config["fonts"],
     "size": config["size"],
     "bg": config["bg_color"],
     "bg_r": config["bg_r"],

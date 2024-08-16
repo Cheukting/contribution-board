@@ -5,7 +5,6 @@ ERR_RULES = {
     "state": "input not in ['all', 'open', 'closed']",
     "style": "input not in ['full', 'compact']",
     "size": "int(input) <= 0",
-    "bg_color": "input is None",
     "bg_r": "int(input) <= 0",
     "pri_color": "input is None",
     "sec_color": "input is None",
