@@ -1,12 +1,10 @@
 name: Generate SVG file
 on:
-  - workflow_dispatch:
+  - push
   - schedule:
     cron: "10 9 * * *"
-
 permissions:
   contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
