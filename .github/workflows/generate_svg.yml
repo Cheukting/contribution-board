@@ -20,7 +20,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.Token }}
         run: |
-          pip install requirements.txt
+          pip install -r requirements.txt
           python main.py
           git config user.name github-actions
           git config user.email github-actions@github.com
