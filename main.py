@@ -4,13 +4,16 @@ import json
 import os
 
 from svg_gen import gen_full, gen_compact
+from validation import input_val
+
+with open("config.yml", "r") as file:
+    config = yaml.safe_load(file)
+
+input_val(config)
 
 headers = {
     "Authorization": os.environ["TOKEN"]
 }
-
-with open("config.yml", "r") as file:
-    config = yaml.safe_load(file)
 
 all_prs = []
 
@@ -32,6 +35,7 @@ with open("output.json", "w") as file:
     json.dump(all_prs, file)
 
 colors = {
+    "size": config["size"],
     "bg": config["bg_color"],
     "bg_r": config["bg_r"],
     "pri": config["pri_color"],

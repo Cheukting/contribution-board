@@ -1,20 +1,31 @@
 # your GitHub user name
 username: Cheukting
+
 # public repos that you want to showcase
 repos:
   - PyO3/pyo3
   - pola-rs/polars
+
 # output svg file name
 output: output.svg
+
 # status of the PR that would be included: all, open, closed
 state: all
+
 # style of the card: full, compact
 style: full
+
+# size multiplyer: non-negative, recommend 0.8-1.5
+size: 1
+
 # color of the background, if not given it will be transparent
 bg_color: "grey"
-# The radius of the corners of the background: recommend 5-15
+
+# The radius of the corners of the background: non-negative, recommend 5-15
 bg_r: 5
+
 # primary color
 pri_color: "black"
+
 # secondary color
 sec_color: "blue"

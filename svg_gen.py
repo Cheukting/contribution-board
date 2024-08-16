@@ -10,6 +10,7 @@ def add_bg(colors):
 def gen_full(all_prs, headers, colors):
     repo_cache = {}
     svgtext = add_bg(colors)
+    m = colors["size"]
 
     for i, pr in enumerate(all_prs):
         url = pr["repository_url"]
@@ -20,14 +21,14 @@ def gen_full(all_prs, headers, colors):
         else:
             res_context = repo_cache[url]
         svgtext += f"""<a href="{res_context["html_url"]}" target="_blank">
-        <image x="10" y="{15+i*50}" height="25" width="25" href="{res_context["owner"]["avatar_url"]}" />
-        <text x="45" y="{20+i*50}" fill="{colors["sec"]}" font-size="15">{res_context["full_name"]}</text>
+        <image x="{10*m}" y="{(15+i*50)*m}" height="{25*m}" width="{25*m}" href="{res_context["owner"]["avatar_url"]}" />
+        <text x="{45*m}" y="{(20+i*50)*m}" fill="{colors["sec"]}" font-size="{15*m}">{res_context["full_name"]}</text>
       </a>\n<a href="{pr["html_url"]}" target="_blank">
-        <text x="45" y="{40+i*50}" fill="{colors["pri"]}" font-size="18">{pr["title"]}</text>
+        <text x="{45*m}" y="{(40+i*50)*m}" fill="{colors["pri"]}" font-size="{18*m}">{pr["title"]}</text>
       </a>\n"""
 
     content = f"""<?xml version="1.0" encoding="UTF-8"?>
-    <svg height="{10+len(all_prs)*50}" width="500" xmlns="http://www.w3.org/2000/svg">
+    <svg height="{(10+len(all_prs)*50)*m}" width="{500*m}" xmlns="http://www.w3.org/2000/svg">
     {svgtext}
     </svg>"""
 
@@ -37,6 +38,7 @@ def gen_full(all_prs, headers, colors):
 def gen_compact(all_prs, headers, user, state, colors):
     repo_cache = {}
     svgtext = add_bg(colors)
+    m = colors["size"]
 
     for i, pr in enumerate(all_prs):
         url = pr["repository_url"]
@@ -51,13 +53,13 @@ def gen_compact(all_prs, headers, user, state, colors):
     for i, url in enumerate(repo_cache):
         res_context = repo_cache[url]["content"]
         svgtext += f"""<a href="{res_context["html_url"]}" target="_blank">
-        <image x="{15+i*100}" y="15" height="25" width="25" href="{res_context["owner"]["avatar_url"]}" /></a>
+        <image x="{(15+i*100)*m}" y="{15*m}" height="{25*m}" width="{25*m}" href="{res_context["owner"]["avatar_url"]}" /></a>
         <a href="{res_context["html_url"]}/pulls?q=author%3A{user}+{f"is%3A{state}" if state in ["open", "closed"] else ""}" target="_blank">
-        <text x="{45+i*100}" y="35" fill="{colors["pri"]}" font-size="20">{repo_cache[url]["count"]} {"PR" if repo_cache[url]["count"] ==1 else "PRs"}</text>
+        <text x="{(45+i*100)*m}" y="{35*m}" fill="{colors["pri"]}" font-size="{20*m}">{repo_cache[url]["count"]} {"PR" if repo_cache[url]["count"] ==1 else "PRs"}</text>
       </a>\n"""
 
     content = f"""<?xml version="1.0" encoding="UTF-8"?>
-    <svg height="55" width="{len(repo_cache)*100}" xmlns="http://www.w3.org/2000/svg">
+    <svg height="{55*m}" width="{len(repo_cache)*100*m}" xmlns="http://www.w3.org/2000/svg">
     {svgtext}
     </svg>"""
 
