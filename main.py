@@ -11,9 +11,7 @@ with open("config.yml", "r") as file:
 
 input_val(config)
 
-headers = {
-    "Authorization": os.environ["TOKEN"]
-}
+headers = {"Authorization": os.environ["TOKEN"]}
 
 all_prs = []
 
@@ -30,9 +28,6 @@ for repo in config["repos"]:
         )
     res_context = json.loads(res.text)
     all_prs += res_context["items"]
-
-with open("output.json", "w") as file:
-    json.dump(all_prs, file)
 
 colors = {
     "title": config["title"],
@@ -51,3 +46,5 @@ with open(config["output"], "w") as file:
         )
     else:
         file.write(gen_full(all_prs, headers, colors))
+
+print(f'{config["output"]} has been generated.')

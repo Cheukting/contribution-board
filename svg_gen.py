@@ -1,13 +1,15 @@
 import requests
 import json
 
+
 def add_bg(colors):
     if colors["bg"] is not None:
         return f'<rect width="100%" height="100%" rx="{colors["bg_r"]}" ry="{colors["bg_r"]}" fill="{colors["bg"]}"/>'
     else:
         return ""
 
-def add_title(colors, length = None):
+
+def add_title(colors, length=None):
     m = colors["size"]
     fonts = "sans-serif" if colors["fonts"] is None else colors["fonts"]
 
@@ -19,11 +21,12 @@ def add_title(colors, length = None):
     else:
         return ""
 
+
 def gen_full(all_prs, headers, colors):
     repo_cache = {}
     svgtext = add_bg(colors)
     m = colors["size"]
-    t = 0 if colors["title"] is None else 35*m
+    t = 0 if colors["title"] is None else 35 * m
     svgtext += add_title(colors)
 
     fonts = "sans-serif" if colors["fonts"] is None else colors["fonts"]
@@ -55,7 +58,7 @@ def gen_compact(all_prs, headers, user, state, colors):
     repo_cache = {}
     svgtext = add_bg(colors)
     m = colors["size"]
-    t = 0 if colors["title"] is None else 35*m
+    t = 0 if colors["title"] is None else 35 * m
 
     for i, pr in enumerate(all_prs):
         url = pr["repository_url"]
@@ -69,7 +72,7 @@ def gen_compact(all_prs, headers, user, state, colors):
 
     fonts = "sans-serif" if colors["fonts"] is None else colors["fonts"]
 
-    svgtext += add_title(colors, len(repo_cache)*100*m-20*m)
+    svgtext += add_title(colors, len(repo_cache) * 100 * m - 20 * m)
 
     for i, url in enumerate(repo_cache):
         res_context = repo_cache[url]["content"]

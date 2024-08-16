@@ -10,6 +10,7 @@ ERR_RULES = {
     "sec_color": "input is None",
 }
 
+
 def input_val(config):
     for key, rule in ERR_RULES.items():
         input = config[key]
