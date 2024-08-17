@@ -1,5 +1,7 @@
 import requests
 import json
+import subprocess
+import re
 
 
 def add_bg(colors):
@@ -22,6 +24,59 @@ def add_title(colors, length=None):
         return ""
 
 
+def produce_avatar(url, id, colors, pos):
+    # download the avatar image
+    img_data = requests.get(url).content
+    with open(f"image/{id}.png", "wb") as handler:
+        handler.write(img_data)
+
+    # convert to svg with potrace with subprocess
+    size, _ = eval(
+        subprocess.check_output(
+            ["magick", f"image/{id}.png", "-print", "%w, %h\n", "/dev/null"]
+        )
+    )
+    subprocess.run(
+        [
+            "magick",
+            f"image/{id}.png",
+            "-background",
+            "White",
+            "-alpha",
+            "Background",
+            f"image/{id}.pnm",
+        ]
+    )
+    subprocess.run(
+        [
+            "potrace",
+            f"image/{id}.pnm",
+            "-s",
+            "-o",
+            f"image/{id}.svg",
+            "-C",
+            f"{colors["sec"]}",
+        ]
+    )
+
+    # read svg and return path elements
+    m = colors["size"]
+    with open(f"image/{id}.svg", "r") as handler:
+        svg_txt = handler.read()
+        elep = re.compile(r"<g [\s\S]+</g>")
+        match = re.search(elep, svg_txt).group()
+        scale = 30 * m / size
+        match = re.sub(
+            r"translate\([\s\S][^)]+\)",
+            f'translate({pos["x"]},{pos["y"]+scale})',
+            match,
+        )
+        match = re.sub(
+            r"scale\([\s\S][^)]+\)", f"scale({.1*scale}, {-0.1*scale})", match
+        )
+        return match
+
+
 def gen_full(all_prs, headers, colors):
     repo_cache = {}
     svgtext = add_bg(colors)
@@ -39,8 +94,14 @@ def gen_full(all_prs, headers, colors):
             repo_cache.update({url: res_context})
         else:
             res_context = repo_cache[url]
+        avatars = produce_avatar(
+            res_context["owner"]["avatar_url"],
+            res_context["owner"]["id"],
+            colors,
+            {"x": 10 * m, "y": t + (40 + i * 50) * m},
+        )
         svgtext += f"""<a href="{res_context["html_url"]}" target="_blank">
-        <image x="{10*m}" y="{t+(15+i*50)*m}" height="{25*m}" width="{25*m}" href="{res_context["owner"]["avatar_url"][:-4]}" crossorigin="anonymous" />
+        {avatars}
         <text x="{45*m}" y="{t+(20+i*50)*m}" fill="{colors["sec"]}" font-size="{15*m}" font-family="{fonts}">{res_context["full_name"]}</text>
       </a>\n<a href="{pr["html_url"]}" target="_blank">
         <text x="{45*m}" y="{t+(40+i*50)*m}" fill="{colors["pri"]}" font-size="{18*m}" font-family="{fonts}">{pr["title"]}</text>
