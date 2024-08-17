@@ -94,14 +94,14 @@ def gen_full(all_prs, headers, colors):
             repo_cache.update({url: res_context})
         else:
             res_context = repo_cache[url]
-        avatars = produce_avatar(
+        avatar = produce_avatar(
             res_context["owner"]["avatar_url"],
             res_context["owner"]["id"],
             colors,
             {"x": 10 * m, "y": t + (40 + i * 50) * m},
         )
         svgtext += f"""<a href="{res_context["html_url"]}" target="_blank">
-        {avatars}
+        {avatar}
         <text x="{45*m}" y="{t+(20+i*50)*m}" fill="{colors["sec"]}" font-size="{15*m}" font-family="{fonts}">{res_context["full_name"]}</text>
       </a>\n<a href="{pr["html_url"]}" target="_blank">
         <text x="{45*m}" y="{t+(40+i*50)*m}" fill="{colors["pri"]}" font-size="{18*m}" font-family="{fonts}">{pr["title"]}</text>
@@ -137,8 +137,14 @@ def gen_compact(all_prs, headers, user, state, colors):
 
     for i, url in enumerate(repo_cache):
         res_context = repo_cache[url]["content"]
+        avatar = produce_avatar(
+            res_context["owner"]["avatar_url"],
+            res_context["owner"]["id"],
+            colors,
+            {"x": (10 + i * 100) * m, "y": t + 40 * m},
+        )
         svgtext += f"""<a href="{res_context["html_url"]}" target="_blank">
-        <image x="{(15+i*100)*m}" y="{t+15*m}" height="{25*m}" width="{25*m}" href="{res_context["owner"]["avatar_url"][:-4]}" crossorigin="anonymous" /></a>
+        {avatar}</a>
         <a href="{res_context["html_url"]}/pulls?q=author%3A{user}+{f"is%3A{state}" if state in ["open", "closed"] else ""}" target="_blank">
         <text x="{(45+i*100)*m}" y="{t+35*m}" fill="{colors["pri"]}" font-size="{20*m}" font-family="{fonts}">{repo_cache[url]["count"]} {"PR" if repo_cache[url]["count"] ==1 else "PRs"}</text>
       </a>\n"""
