@@ -33,12 +33,12 @@ def produce_avatar(url, id, colors, pos):
     # convert to svg with potrace with subprocess
     size, _ = eval(
         subprocess.check_output(
-            ["magick", f"image/{id}.png", "-print", "%w, %h\n", "/dev/null"]
+            ["convert", f"image/{id}.png", "-print", "%w, %h\n", "/dev/null"]
         )
     )
     subprocess.run(
         [
-            "magick",
+            "convert",
             f"image/{id}.png",
             "-background",
             "White",
