@@ -6,6 +6,8 @@ repos:
   - PyO3/pyo3
   - pola-rs/polars
 
+# ===== SVG file settings =====
+
 # output svg file name
 output: output.svg
 
@@ -35,3 +37,16 @@ pri_color: "#FFC0CB"
 
 # secondary color
 sec_color: "#CBB39C"
+
+# ===== Social Media settings (beta) (optional) =====
+
+social:
+
+  # X (Twitter) handle e.g. @example
+  twitter:
+
+  # Mastodon handle e.g. @example@demo.org
+  mastodon: #"@cheukting_ho@fosstodon.org"
+
+  # LinkedIn profile handle e.g.
+  linkedin:

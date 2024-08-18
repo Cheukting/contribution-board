@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
   schedule:
-    - cron: "10 9 * * *" # <=== Change this value 
+    - cron: "10 9 * * *" # <=== Change this value
 permissions:
   contents: write
 jobs:
@@ -23,7 +23,7 @@ jobs:
           sudo apt-get install ghostscript
           sudo apt-get install potrace
           pip install -r requirements.txt
-          python main.py
+          python src/main.py
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .

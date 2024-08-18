@@ -5,6 +5,7 @@ import os
 
 from svg_gen import gen_full, gen_compact
 from validation import input_val
+from social import post_to_social
 
 with open("config.yml", "r") as file:
     config = yaml.safe_load(file)
@@ -48,3 +49,5 @@ with open(config["output"], "w") as file:
         file.write(gen_full(all_prs, headers, colors))
 
 print(f'{config["output"]} has been generated.')
+
+post_to_social(all_prs, config["social"])

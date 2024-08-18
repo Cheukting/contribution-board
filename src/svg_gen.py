@@ -6,7 +6,7 @@ import re
 
 def add_bg(colors):
     if colors["bg"] is not None:
-        return f'<rect width="100%" height="100%" rx="{colors["bg_r"]}" ry="{colors["bg_r"]}" fill="{colors["bg"]}" stroke="transparent" p/>'
+        return f'<rect width="100%" height="100%" rx="{colors["bg_r"]}" ry="{colors["bg_r"]}" fill="{colors["bg"]}" stroke="transparent" />'
     else:
         return ""
 
