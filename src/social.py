@@ -1,24 +1,9 @@
 import requests
 import os
 from datetime import datetime, timezone, timedelta
+from requests_oauthlib import OAuth1
 
 now = datetime.fromisoformat("2024-07-21 09:05:34+00:00")  # datetime.now(timezone.utc)
-TOKENS = {
-    "twitter": None,
-    "mastodon": f'Bearer {os.environ["MASTODON_TOKEN"]}',
-    "linkedin": f'Bearer {os.environ["LINKEDIN_TOKEN"]}',
-}
-
-
-def authenticate(accounts):
-    for key, value in accounts.items():
-        match key:
-            case "twitter":
-                pass
-            case "mastodon":
-                pass
-            case "linkein":
-                pass
 
 
 def gen_txt(type, pr):
@@ -33,14 +18,28 @@ def gen_txt(type, pr):
         return f'My contribution "{pr_info["title"]}" at #{pr_info["repo"]} have been accepted! See it at {pr_info["link"]}'
 
 
-def post_to_twitter(text, handle):
-    pass
+def post_to_twitter(text):
+    url = "https://api.x.com/2/tweets"
+
+    auth = OAuth1(
+        f'{os.environ["X_API_KEY"]}',
+        f'{os.environ["X_API_SECRET"]}',
+        f'{os.environ["X_ACCESS_TOKEN"]}',
+        f'{os.environ["X_ACCESS_SECRET"]}',
+    )
+
+    headers = {
+        "Content-Type": "application/json",
+    }
+    return requests.post(url, headers=headers, auth=auth, json={"text": text})
 
 
-def post_to_mastodon(text, handle):
-    domain = handle.split("@")[-1]
-    headers = {"Authorization": TOKENS["mastodon"], "Content-Type": "application/json"}
-    res = requests.post(
+def post_to_mastodon(text, domain):
+    headers = {
+        "Authorization": f'Bearer {os.environ["MASTODON_TOKEN"]}',
+        "Content-Type": "application/json",
+    }
+    return requests.post(
         f"https://{domain}/api/v1/statuses", headers=headers, json={"status": text}
     )
 
@@ -67,30 +66,45 @@ def post_to_linkedin(text):
     }
 
     headers = {
-        "Authorization": TOKENS["linkedin"],
+        "Authorization": f"Bearer {os.environ["LINKEDIN_TOKEN"]}",
         "Content-Type": "application/json",
         "X-Restli-Protocol-Version": "2.0.0",
     }
-    res = requests.post(
+    return requests.post(
         f"https://api.linkedin.com/v2/ugcPosts", headers=headers, json=content
     )
 
 
+def feedback(url, text, res):
+    if res.ok:
+        print(f"Posted to {url}:")
+        print(text)
+    else:
+        print(f"Failed to post to {url}. Error:")
+        print(res.text)
+    print()
+
+
 def post_to_each_social(pr, accounts, type):
+    text = gen_txt(type, pr)
     for key, value in accounts.items():
         match key:
             case "twitter":
-                pass
+                if value is not None:
+                    url = f'https://x.com/{value.strip("@")}'
+                    feedback(url, text, post_to_twitter(text))
             case "mastodon":
                 if value is not None:
-                    post_to_mastodon(gen_txt(type, pr), value)
+                    domain = value.split("@")[-1]
+                    acc = value.split("@")[-2]
+                    url = f"https://{domain}/@{acc}"
+                    feedback(url, text, post_to_mastodon(text, domain))
             case "linkedin":
                 if value is not None:
-                    post_to_linkedin(gen_txt(type, pr))
+                    feedback(value, text, post_to_linkedin(text))
 
 
 def post_to_social(prs, accounts):
-    authenticate(accounts)
     for pr in prs:
         if pr["state"] == "open":
             created = datetime.fromisoformat(pr["created_at"])

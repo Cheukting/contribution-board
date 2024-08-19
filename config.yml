@@ -11,6 +11,9 @@ repos:
 # output svg file name
 output: output.svg
 
+# status of the PR that would be included: all, open, closed
+state: all
+
 # style of the card: full, compact
 style: full
 
@@ -21,9 +24,6 @@ apperance:
 
   # prioritized list of one or more font family names and/or generic family names seperated by commas (optional)
   fonts: Arial, Helvetica, sans-serif
-
-  # status of the PR that would be included: all, open, closed
-  state: all
 
   # size multiplyer: non-negative, recommend 0.8-1.5
   size: 1
@@ -40,15 +40,16 @@ apperance:
   # secondary color
   sec_color: "#CBB39C"
 
-# ===== Social Media settings (beta) (optional) =====
+# ===== Social Media settings (optional) =====
+# post new pr/ merged pr to your social media account. Please see README for method to set up access tokens and secrets (required).
 
 social:
 
   # X (Twitter) handle e.g. @example
-  twitter:
+  twitter: "@cheukting_ho"
 
   # Mastodon handle e.g. @example@demo.org
-  mastodon: #"@cheukting_ho@fosstodon.org"
+  mastodon: "@cheukting_ho@fosstodon.org"
 
   # LinkedIn profile page e.g. https://www.linkedin.com/in/<your_name>/
   linkedin: https://www.linkedin.com/in/cheukting-ho/

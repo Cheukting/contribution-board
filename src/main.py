@@ -44,5 +44,11 @@ with open(config["output"], "w") as file:
         file.write(gen_full(all_prs, headers, config["apperance"]))
 
 print(f'{config["output"]} has been generated.')
+print()
 
-post_to_social(all_prs, config["social"])
+if (
+    config["social"]["twitter"] is not None
+    or config["social"]["mastodon"] is not None
+    or config["social"]["linkedin"] is not None
+):
+    post_to_social(all_prs, config["social"])

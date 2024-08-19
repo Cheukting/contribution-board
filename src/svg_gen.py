@@ -5,6 +5,7 @@ import re
 
 
 def add_bg(colors):
+    """Adding a rectangle element as background"""
     if colors["bg_color"] is not None:
         return f'<rect width="100%" height="100%" rx="{colors["bg_r"]}" ry="{colors["bg_r"]}" fill="{colors["bg_color"]}" stroke="transparent" />'
     else:
@@ -12,6 +13,7 @@ def add_bg(colors):
 
 
 def add_title(colors, length=None):
+    """Adding the title if not None. If length is set, the text will be stretched (or compressed) to set length"""
     m = colors["size"]
     fonts = "sans-serif" if colors["fonts"] is None else colors["fonts"]
 
@@ -25,6 +27,8 @@ def add_title(colors, length=None):
 
 
 def produce_avatar(url, id, colors, pos):
+    """Download the avatar of the repo owner and calling external program to convert the png file to svg. Then read the svg created and transform it to certain scale and position to get ready for embedding into the board"""
+    
     # download the avatar image
     img_data = requests.get(url).content
     with open(f"image/{id}.png", "wb") as handler:
@@ -78,6 +82,7 @@ def produce_avatar(url, id, colors, pos):
 
 
 def gen_full(all_prs, headers, colors):
+    """Function to generate the board in the full style"""
     repo_cache = {}
     svgtext = add_bg(colors)
     m = colors["size"]
@@ -116,6 +121,7 @@ def gen_full(all_prs, headers, colors):
 
 
 def gen_compact(all_prs, headers, user, state, colors):
+    """Function to generate the board in the compact style"""
     repo_cache = {}
     svgtext = add_bg(colors)
     m = colors["size"]
