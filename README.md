@@ -2,7 +2,7 @@
 
 Do you have a few favourite OSS projects that you have been contributing and want to highlight your contributions (in the form of PRs) in one place? Do you feel that you should advertise your open source contributions better but not comfortable to write self promotion posts on social media? I have the same problem too! Thus, I have created this script/ app that you could deploy on GitHub action to advertise your open source contributions on GitHub effortlessly.
 
-You can see [how I use it on my GitHub repo here](https://github.com/Cheukting/contribution-board). And you can get your own by using this cookiecutter template.
+You can see [how I use it on my GitHub repo here](https://github.com/Cheukting/contribution-board). And you can get your own by using [this cookiecutter template](https://github.com/Cheukting/pr_showcase_template).
 
 ## Usage
 
@@ -12,7 +12,7 @@ There are 2 main functionalities of this project:
 
 2. [Optional] Announce to social media when you make a new PR or a PR got merged. To let the script get access to your social media account, tokens and secrets will need to be set up as environment variables (see next session).
 
-General customisation can be down with changing the properties of `config.yml`. For more fine grain customisation, please see advance usage session.
+General customisation can be done with changing the properties of `config.yml`. For more fine grain customisation, please see advance usage session.
 
 ## Preview
 
@@ -61,7 +61,7 @@ If you are running it on GitHub action, you will need to set up these variables 
 
 Other than trigger by a `push` event, the GitHub action workflow is set to run every day at a certain time, the time is set randomly. To set your own time, you can do to the `generate_svg.yml` and chage the `cron` setting. To understand more about how to set the time and the best practice, [please see the guide on GitHub Action here](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule).
 
-For new PR/ merged PR activities, only those which is happening within a day will trigger a post to social media if it has been set up/.
+For new PR/ merged PR activities, only those which is happening within a day will trigger a post to social media if it has been set up.
 
 ## Extra program needed
 
@@ -89,7 +89,7 @@ Although you can do anything, I think the following maybe the ones that you want
 
 ## Questions or Issues
 
-Questions and suggestions are welcomed! Please go to the original cookiecutter template to open an issue.
+Questions and suggestions are welcomed! Please go to the original cookiecutter template to [open an issue](https://github.com/Cheukting/pr_showcase_template/issues).
 
 ---
 
