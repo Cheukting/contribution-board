@@ -5,8 +5,8 @@ import re
 
 
 def add_bg(colors):
-    if colors["bg"] is not None:
-        return f'<rect width="100%" height="100%" rx="{colors["bg_r"]}" ry="{colors["bg_r"]}" fill="{colors["bg"]}" stroke="transparent" />'
+    if colors["bg_color"] is not None:
+        return f'<rect width="100%" height="100%" rx="{colors["bg_r"]}" ry="{colors["bg_r"]}" fill="{colors["bg_color"]}" stroke="transparent" />'
     else:
         return ""
 
@@ -17,9 +17,9 @@ def add_title(colors, length=None):
 
     if colors["title"] is not None:
         if length is None:
-            return f'<text x="{10*m}" y="{30*m}" fill="{colors["pri"]}" font-size="{22*m}" font-weight="bold" font-family="{fonts}">{colors["title"]}</text>'
+            return f'<text x="{10*m}" y="{30*m}" fill="{colors["pri_color"]}" font-size="{22*m}" font-weight="bold" font-family="{fonts}">{colors["title"]}</text>'
         else:
-            return f'<text x="{10*m}" y="{30*m}" fill="{colors["pri"]}" font-size="{22*m}" font-weight="bold" font-family="{fonts}" textLength="{length}" lengthAdjust="spacingAndGlyphs">{colors["title"]}</text>'
+            return f'<text x="{10*m}" y="{30*m}" fill="{colors["pri_color"]}" font-size="{22*m}" font-weight="bold" font-family="{fonts}" textLength="{length}" lengthAdjust="spacingAndGlyphs">{colors["title"]}</text>'
     else:
         return ""
 
@@ -55,7 +55,7 @@ def produce_avatar(url, id, colors, pos):
             "-o",
             f"image/{id}.svg",
             "-C",
-            f"{colors["sec"]}",
+            f"{colors["sec_color"]}",
         ]
     )
 
@@ -102,9 +102,9 @@ def gen_full(all_prs, headers, colors):
         )
         svgtext += f"""<a href="{res_context["html_url"]}" target="_blank">
         {avatar}
-        <text x="{45*m}" y="{t+(20+i*50)*m}" fill="{colors["sec"]}" font-size="{15*m}" font-family="{fonts}">{res_context["full_name"]}</text>
+        <text x="{45*m}" y="{t+(20+i*50)*m}" fill="{colors["sec_color"]}" font-size="{15*m}" font-family="{fonts}">{res_context["full_name"]}</text>
       </a>\n<a href="{pr["html_url"]}" target="_blank">
-        <text x="{45*m}" y="{t+(40+i*50)*m}" fill="{colors["pri"]}" font-size="{18*m}" font-family="{fonts}">{pr["title"]}</text>
+        <text x="{45*m}" y="{t+(40+i*50)*m}" fill="{colors["pri_color"]}" font-size="{18*m}" font-family="{fonts}">{pr["title"]}</text>
       </a>\n"""
 
     content = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -146,7 +146,7 @@ def gen_compact(all_prs, headers, user, state, colors):
         svgtext += f"""<a href="{res_context["html_url"]}" target="_blank">
         {avatar}</a>
         <a href="{res_context["html_url"]}/pulls?q=author%3A{user}+{f"is%3A{state}" if state in ["open", "closed"] else ""}" target="_blank">
-        <text x="{(45+i*100)*m}" y="{t+35*m}" fill="{colors["pri"]}" font-size="{20*m}" font-family="{fonts}">{repo_cache[url]["count"]} {"PR" if repo_cache[url]["count"] ==1 else "PRs"}</text>
+        <text x="{(45+i*100)*m}" y="{t+35*m}" fill="{colors["pri_color"]}" font-size="{20*m}" font-family="{fonts}">{repo_cache[url]["count"]} {"PR" if repo_cache[url]["count"] ==1 else "PRs"}</text>
       </a>\n"""
 
     content = f"""<?xml version="1.0" encoding="UTF-8"?>

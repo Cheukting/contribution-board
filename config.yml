@@ -11,32 +11,34 @@ repos:
 # output svg file name
 output: output.svg
 
-# title (optional)
-title: My Contributions in Rust
-
-# prioritized list of one or more font family names and/or generic family names seperated by commas (optional)
-fonts: Arial, Helvetica, sans-serif
-
-# status of the PR that would be included: all, open, closed
-state: all
-
 # style of the card: full, compact
 style: full
 
-# size multiplyer: non-negative, recommend 0.8-1.5
-size: 1
+apperance:
 
-# color of the background (optional), if not given it will be transparent
-bg_color: "#696969"
+  # title (optional)
+  title: My Contributions in Rust
 
-# The radius of the corners of the background: non-negative, recommend 5-15
-bg_r: 8
+  # prioritized list of one or more font family names and/or generic family names seperated by commas (optional)
+  fonts: Arial, Helvetica, sans-serif
 
-# primary color
-pri_color: "#FFC0CB"
+  # status of the PR that would be included: all, open, closed
+  state: all
 
-# secondary color
-sec_color: "#CBB39C"
+  # size multiplyer: non-negative, recommend 0.8-1.5
+  size: 1
+
+  # color of the background (optional), if not given it will be transparent
+  bg_color: "#696969"
+
+  # The radius of the corners of the background: non-negative, recommend 5-15
+  bg_r: 8
+
+  # primary color
+  pri_color: "#FFC0CB"
+
+  # secondary color
+  sec_color: "#CBB39C"
 
 # ===== Social Media settings (beta) (optional) =====
 
@@ -48,5 +50,5 @@ social:
   # Mastodon handle e.g. @example@demo.org
   mastodon: #"@cheukting_ho@fosstodon.org"
 
-  # LinkedIn profile handle e.g.
-  linkedin:
+  # LinkedIn profile page e.g. https://www.linkedin.com/in/<your_name>/
+  linkedin: MMuag5u8iG
