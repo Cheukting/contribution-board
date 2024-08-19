@@ -1,4 +1,4 @@
-# contribution-board
+# PR Showcase Board
 
 Do you have a few favourite OSS projects that you have been contributing and want to highlight your contributions (in the form of PRs) in one place? Do you feel that you should advertise your open source contributions better but not comfortable to write self promotion posts on social media? I have the same problem too! Thus, I have created this script/ app that you could deploy on GitHub action to advertise your open source contributions on GitHub effortlessly.
 
@@ -14,6 +14,11 @@ There are 2 main functionalities of this project:
 
 General customisation can be down with changing the properties of `config.yml`. For more fine grain customisation, please see advance usage session.
 
+## Preview
+
+Once the output is generated, you can see it here:
+
+![svg output preview](output.svg)
 
 ## Set up access token as environment variables
 
@@ -48,6 +53,7 @@ If you want the script to post to your social media on your behalf, you have to 
     2. Select your app from the ["My App" page](https://www.linkedin.com/developers/apps) and get your app verified. Then under `Products` tab, request access of `Share on LinkedIn` and `Sign In with LinkedIn using OpenID Connect` under `Available products`.
     3. After getting emails that those are apprived (may take a couple of minutes), use the [LinkedIn Developer Portal Token Generator tool](https://www.linkedin.com/developers/tools/oauth/token-generator) to get a token, make sure all the permissions (email, openid, profile, w_member_social) are selected.
     4. Put your token in the environment variables as `LINKEDIN_TOKEN`.
+    5. Please note that your token will expire in 60 days. So you may have to manually generate a new token and update it reguarly.
 
 If you are running it on GitHub action, you will need to set up these variables as secrets. [Learn how to set up secrets in GitHub Action here.](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository)
 
