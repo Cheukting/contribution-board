@@ -3,7 +3,7 @@ import os
 from datetime import datetime, timezone, timedelta
 from requests_oauthlib import OAuth1
 
-now = datetime.fromisoformat("2024-07-21 09:05:34+00:00")  # datetime.now(timezone.utc)
+now = datetime.now(timezone.utc)
 
 
 def gen_txt(type, pr):
@@ -77,7 +77,7 @@ def post_to_linkedin(text):
 
 def feedback(url, text, res):
     if res.ok:
-        print(f"Posted to {url}:")
+        print(f"Posted to {url} with:")
         print(text)
     else:
         print(f"Failed to post to {url}. Error:")
